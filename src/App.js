@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+
+  const [todo, setTodo] = useState([]);
+  const handleAddTodo = () => {
+    const listTodo = [...todo, `Task ${todo.length}`];
+    setTodo(listTodo);
+  }
+    const removeItem = (index) => {
+      const remove = todo.filter(el => todo.indexOf(el)!==index)
+      setTodo(remove)
+    }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="todo-container">
+      <div className="todo-form">
+      <br/>
+      <h2>Todo List</h2>
+      <br/>
+      <input className="input" type="text" placeholder="add task" />
+      <input type="submit" onClick={handleAddTodo} value="ADD" />
+      {
+        todo.map(el => <tr style={{ display: "flex" }}><li>{el}</li> <span onClick={()=>removeItem(todo.indexOf(el))} className="close-symbol">X</span> </tr>)
+      }
+      </div>
     </div>
   );
 }
